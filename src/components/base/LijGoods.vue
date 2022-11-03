@@ -1,60 +1,56 @@
-<!--
- * @Author: 李俊 958269209@qq.com
- * @Date: 2022-11-03 09:38:38
- * @LastEditors: 李俊 958269209@qq.com
- * @LastEditTime: 2022-11-03 09:43:00
- * @FilePath: \vue-lcapp\src\components\base\lijGoods.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <template>
-  <van-swipe 
-   class="lij-banner-swipe" 
-   :autoplay="3000"
-   loop
-   :height="bannerHeight"
-   indicator-color="#72b2f2"
-  >
-    <van-swipe-item @click="toProductHandler(item.goods_id)" class="lij-banner-item" v-for="item in bannerList" :key="item.goods_id">
-      <van-image radius="16" lazy-load :src="item.goods_thumb">
-        <template v-slot:loading>
-          <van-loading type="spinner" size="20" />
-        </template>
-      </van-image>
-    </van-swipe-item>
-  </van-swipe>
+  <div @click="clickHandler" class="goods">
+    <img :src="goods.goods_thumb" alt="">
+    <p class="van-multi-ellipsis--l2">{{goods.goods_name}}</p>
+    <p class="van-multi-ellipsis--l2">{{goods.goods_desc}}</p>
+    <p>￥{{goods.price}}</p>
+  </div>
 </template>
 
 <script>
-
-  export default {
-    props : ['bannerList'],
-     // 计算属性
-     computed : {
-      bannerHeight(){     
-        return 475 / 1000 * (document.documentElement.clientWidth - 20);
-      }
-    },
-
-    methods : {
-      toProductHandler(id){
-        this.$router.push({path : '/product', query : {goodsId : id}})
-      }
+export default {
+  props : ['goods'],
+  methods : {
+    clickHandler(){
+      //跳转到详情
+      this.$router.push({path : '/product', query : {goodsId : this.goods.goods_id}})
     }
-
   }
 
+}
 </script>
 
 <style lang="less" scoped>
- .lij-banner-swipe{
-    text-align: center;
-    line-height: 150px;
-    margin-top:10px;
-
-    .lij-banner-item{
+  .goods{
+    width:49%;
+    background-color: #fff;
+    border-radius: 6px 6px 0px 0px;
+    padding-bottom: 30px;
+    margin-bottom: 15px;
+    img{
+      width:100%;
+      border-radius: 6px 6px 0px 0px;
+      margin-bottom: 20px;
+    }
+    p{
       padding: 0px 10px;
-      box-sizing: border-box;
+      line-height: 22px;
+    }
+    &>p:nth-of-type(1){
+      font-size: 15px;
+      color: #111;
+      margin-bottom: 8px;
+    }
+    &>p:nth-of-type(2){
+     font-size: 13px;
+     color: #666;
+    }
+    &>p:nth-of-type(3){
+     font-size: 20px;
+    //  font-family: Arial, Helvetica, sans-serif;
+     color: #fe2f44;
+     font-weight: bold;
+     line-height: 30px;
     }
   }
-
 </style>
