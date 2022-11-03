@@ -1,0 +1,41 @@
+*{margin: 0px; padding: 0px;} 
+img{vertical-align: bottom;} 
+input, button{outline: none !important;} 
+a{ 
+ -webkit-tap-highlight-color:transparent; 
+ /*阻止长按超链接弹出菜单*/ 
+ -webkit-touch-callout: none; 
+ text-decoration: none; 
+} 
+ 
+/* 设置页面大小 */ 
+body, html, #app, #navbar-view{ 
+	width:100%; 
+	height: 100%; 
+	overflow: hidden; 
+	background: #f7f7f7;  
+} 
+#search-view, #login-view, #classify-list{ 
+	width:100%; 
+	height: 100%; 
+	overflow-y: scroll; 
+	overflow-x: hidden; 
+	background: #f7f7f7; 
+} 
+ 
+:root{ 
+	/* 全局色调变量颜色 */ 
+	--baseColor : #72b2f2; 
+} 
+ 
+/* 全局设置滚动条 */ 
+::-webkit-scrollbar{width:0px} 
+ 
+#index-view, #classify-view, #cart-view, #user-view{ 
+	height: 100%; 
+	padding-bottom: 50px; 
+	box-sizing: border-box; 
+	/* 设置溢出滚动条 */ 
+	overflow-y: scroll; 
+	overflow-x: hidden; 
+} 

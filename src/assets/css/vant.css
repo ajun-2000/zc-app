@@ -1,0 +1,12 @@
+/* 全局修改：定义vant变量 */ 
+:root{ 
+	--van-tabs-bottom-bar-color : #72b2f2; 
+	--van-nav-bar-background-color : #24272F; 
+	--van-nav-bar-arrow-size : 18px; 
+	--van-nav-bar-text-color : #fff; 
+	--van-nav-bar-icon-color : #fff; 
+	--van-nav-bar-title-text-color : #fff; 
+	--van-badge-border-width : 0px; 
+	--van-badge-background-color :#fd427d; 
+	--van-stepper-button-round-theme-color : #72b2f2; 
+} 
