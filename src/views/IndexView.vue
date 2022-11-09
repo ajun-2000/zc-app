@@ -7,7 +7,7 @@
 
 		<!-- 导航分类 -->
 		<van-tabs 
-		 sticky offset-top="55" 
+		 sticky offset-top="54" 
 		 v-model:active="active"
 		 title-active-color="#72b2f2"
 		 title-inactive-color="#666"
@@ -25,10 +25,6 @@
 				 :name="item.cat_name" 
 				 :is="active == '0000' ? 'HomeContent' : 'OtherContent'"
 				></component>
-				<!-- <home-content 
-				 :name="item.cat_name"
-				 :id="item.cat_id"
-				></home-content> -->
 			</van-tab>
 		</van-tabs>
 

@@ -1,7 +1,13 @@
 <template>
   <div class="other-content">
-    <!-- {{name}}--{{id}} -->
-    <lij-banner :banner-list="bannerList"></lij-banner>
+    <lij-banner 
+     :banner-list="bannerList"
+     margin-top="10"
+     padding-left="10"
+     padding-right="10"
+     :img-size="475/1000"
+     radius="16"
+    ></lij-banner>
     <!-- 专题 -->
     <div class="special-content">
       <h1>专题</h1>
@@ -15,7 +21,7 @@
       <lij-home-goods v-for="item in classifyList" :key="item.id" :goods-list="item"></lij-home-goods>
 
       
-    </div> 
+    </div>
 
   </div>
   
@@ -101,4 +107,4 @@
     
   }
 
-</style> 
+</style>

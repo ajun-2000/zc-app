@@ -15,7 +15,7 @@
 			<img :src="activeClassify.title_img" alt="">
 			<h3>• {{activeClassify.title}} •</h3>
 			<ul>
-				<li @click="toClassifyListH(activeClassify.title)" v-for="item in activeClassify.data">
+				<li @click="toClassifyListH(activeClassify.title)" v-for="item in activeClassify.data" :key="item.id">
 					<img :src="item.product_img" alt="">
 					<p>{{item.product_content}}</p>
 				</li>
@@ -46,7 +46,6 @@
 						return;
 					}
 				});
-				// console.log(this.activeClassify)
 			},
 
 			toClassifyListH(name){
@@ -60,8 +59,6 @@
 			this.classifyListMax = await this.api.getClassifyData();
 			this.active = this.classifyListMax[0].cat_id;
 			this.activeClassify = this.classifyListMax[0];
-			// console.log(this.classifyListMax);
-			// console.log(this.activeClassify);
 		}
 
 	}

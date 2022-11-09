@@ -28,7 +28,7 @@
         this.$router.push({
           path : '/classifylist', 
           query : {
-            catId : this.goodsList.cat_id, 
+            cat_id : this.goodsList.cat_id, 
             catName : this.goodsList.cat_name
           }
         })

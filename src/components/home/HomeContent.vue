@@ -1,14 +1,13 @@
-<!--
- * @Author: 李俊 958269209@qq.com
- * @Date: 2022-11-03 09:38:38
- * @LastEditors: 李俊 958269209@qq.com
- * @LastEditTime: 2022-11-03 09:43:29
- * @FilePath: \vue-lcapp\src\components\home\HomeContent.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <template>
   <!-- 轮播图 -->
-  <lij-banner :banner-list="bannerList"></lij-banner>
+  <lij-banner 
+   :banner-list="bannerList"
+   margin-top="10"
+   padding-left="10"
+   padding-right="10"
+   :img-size="475/1000"
+   radius="16"
+  ></lij-banner>
 
   <!-- 广告位 -->
   <lij-ad :ad-list="adList1"></lij-ad>
