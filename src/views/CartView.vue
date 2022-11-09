@@ -178,13 +178,14 @@
 				// 验证
 				this.cartList.forEach(item => {
 					if(item.isChecked){
-						arr.push(qs.stringify(item));
+						// arr.push(qs.stringify(item));
+						arr.push(item.goods_id)
 					};
 				});
-				console.log(arr);
+				
 
 				if(arr.length != 0){
-					this.$router.push({path : '/order', query : {goods : arr}});
+					this.$router.push({path : '/order', query : {goodsId : arr}});
 				}else{
 					this.$toast.fail('请勾择商品');
 				}
@@ -214,6 +215,9 @@
 </script>
 
 <style lang="less" scoped>
+	.van-card__title{
+		max-height: 40px;
+	}
 	#cart-view{
 		background-color: #eee;
 		padding-bottom: 134px;

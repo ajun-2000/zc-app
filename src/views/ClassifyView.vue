@@ -15,7 +15,7 @@
 			<img :src="activeClassify.title_img" alt="">
 			<h3>• {{activeClassify.title}} •</h3>
 			<ul>
-				<li @click="toClassifyListH(activeClassify.title)" v-for="item in activeClassify.data" :key="item.id">
+				<li @click="toClassifyListH(activeClassify.title,index)" v-for="(item,index) in activeClassify.data" :key="item.id">
 					<img :src="item.product_img" alt="">
 					<p>{{item.product_content}}</p>
 				</li>
@@ -48,8 +48,8 @@
 				});
 			},
 
-			toClassifyListH(name){
-				this.$router.push({path : '/classifylist', query : {cat_id : this.active, catName : name}})
+			toClassifyListH(name,index){
+				this.$router.push({path : '/classifylist', query : {cat_id : this.active, title : name , index : index}})
 			}
 
 		},

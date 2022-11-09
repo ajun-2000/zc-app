@@ -25,7 +25,38 @@
       </div>
       <!-- 单元格 -->
       <van-cell @click="showPopup = !showPopup" title="选择颜色、尺码、数量" icon="certificate" is-link />
-      <img v-for="item in goods.product_banner" :key="item" :src="item" alt="" style="width:100%">
+      <van-row>
+              <van-col span="12" style="text-align:center">
+                <van-button color="#000" :plain="!isGoodInfo" size="large" @click="goodInfoH">商品详情</van-button>
+              </van-col>
+              <van-col span="12" style="text-align:center">
+                <van-button color="#000" :plain="isGoodInfo" size="large" @click="shopInfoH">购物须知</van-button>
+              </van-col>
+      </van-row>
+      <div class="shopInfo" style="padding-bottom:50px" v-show="!isGoodInfo">
+        <p>— 所有商品均为正品保证。</p>
+        <p>— 中国大陆地区免运费 （偏远地区、受疫情和自然灾害影响、受节假日特殊活动等影响时，需承担部分运费)。</p>
+        <p>— 包邮默认商家合作快递，如指定快递请联系客服，并承担运费差额。</p>
+        <p>— 蜡烛、液态品、手表等含电池产品无法空运，运输时间相较普通空运件会更久。</p>
+        <p>— 如出现产品质量问题请在签收后72小时内联系客服。</p>
+      </div>
+      <div style="padding-bottom:50px" v-show="isGoodInfo">
+        <img v-for="item in goods.product_banner" :key="item" :src="item" alt="" style="width:100%">
+      </div>
+      <!--猜你喜欢-->
+		<van-divider :style="{ borderColor: '#1989fa', padding: '0 16px' }" >
+        <van-icon name="like-o"></van-icon>
+        猜你喜欢
+      </van-divider>
+      <div class="lij-home-goods">
+        <div class="goods-content">
+          <lij-goods v-for="item in goodsList" :key="item.goods_id" :goods="item"></lij-goods>
+        </div>
+        <div class="more van-hairline--bottom">
+        <span @click="moreH">查看更多<van-icon name="arrow"></van-icon></span>
+        </div>
+		</div>
+      
       <!-- 弹出层 -->
       <van-action-sheet 
       v-model:show="showPopup"
@@ -42,9 +73,16 @@
         <div>
           <p>分类</p>
             <van-row>
-              <van-col span="4" style="height:50px ; margin:20px 10px; text-align: center;" v-for="item in bannerList" :key="item">
+              <van-col 
+              span="4" 
+              style="height:50px ; margin:20px 10px; text-align: center;"
+               v-for="(item,index) in bannerList" 
+               :key="item"
+               :class="{'activeSort': (activeIndex == index ? true :false)}"
+               @click="activeH(index)"
+               >
                 <img style="width:100%;height:100%" :src="item.goods_thumb" alt="">
-                {{123}}
+                类型 {{index+1}}
               </van-col>
             </van-row>
         </div>
@@ -59,7 +97,12 @@
 
       <van-action-bar>
         <van-action-bar-icon icon="chat-o" text="客服" />
-        <van-action-bar-icon badge="4" icon="cart-o" text="购物车" />
+        <van-action-bar-icon 
+        :badge="cartNumber" 
+        icon="cart-o" 
+        text="购物车" 
+        @click="$router.push('/navbar/cart')"
+        />
         <van-action-bar-icon 
          @click="isStar = !isStar" 
          :icon="isStar ? 'star' : 'star-o'" 
@@ -85,6 +128,10 @@
 
     data(){
       return {
+        activeIndex : 0,
+        value : 1,
+        goodsList : [],
+        isGoodInfo : true,
         namestr : [],
         goods : [],
         bannerList : [],
@@ -98,6 +145,15 @@
     },
 
     methods : {
+      activeH(i){
+          this.activeIndex = i;
+      },
+      goodInfoH(){
+        this.isGoodInfo = true;
+      },
+      shopInfoH(){
+        this.isGoodInfo = false;
+      },
       // 求购物车数量
       getCartCount(){
         let token = window.localStorage.getItem('token');
@@ -120,15 +176,35 @@
         this.showPopup = true;
         // 状态持有
         this.isAddBuy = val;
+        console.log(this.value);
       },
 
       // 点击确定按钮
-      clickConfirmH(){
+      async  clickConfirmH(){
+        let res = await this.api.getCartAddData({
+					status : 'addcart',
+					userId : window.localStorage.getItem('token'),
+					goodsId : this.$route.query.goodsId,
+					goodsNumber : this.value
+				});
+        if(res && this.isAddBuy == '加入购物车'){
+          this.$toast.success('加入购物车成功');
+        };
+				if(res.code != 0){
+					//回头
+				};
+        if(this.isAddBuy == '立即购买'){
+          this.$router.push('/order');
+          this.$router.push({
+          path : '/order', 
+          query : {
+            goodsId : this.$route.query.goodsId
+          }
+        })
+        }
         // 关闭弹出层
         this.showPopup = false;
-        // 验证当前的商品选项（颜色 大小 数量）
-        //验证，再是加入购物车，还是立即购买
-        // console.log(this.isAddBuy)
+
         
 
       },
@@ -137,6 +213,7 @@
     },
 
     async created(){
+      this.goodsList = await this.api.getGoodsData({catId : '0077', pagesize : 4 ,page : 5});
       let res = await this.api.getGoodsData({goodsId : this.$route.query.goodsId});
       console.log(res);
       if(res.length == 0){
@@ -168,9 +245,9 @@
 </script>
 
 <style lang="less" scoped>
-  .van-cell{
-		margin-bottom: 50px;
-	}
+  .activeSort{
+    border: 2px solid red;
+  }
   .van-action-sheet__content{
     padding: 20px;
   }
@@ -181,6 +258,28 @@
     img{
         height:20px;
         width:20px;
+    }
+  }
+  .shopInfo{
+    p{
+      line-height: 35px;font-size: 16px
+    }
+  }
+  .lij-home-goods{
+    padding: 0px 10px;
+    h2{
+      font-size: 20px;
+      line-height: 60px;
+    }
+    .goods-content{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .more{
+      text-align: center;
+      color: #666;
+      line-height: 50px;
     }
   }
 </style>

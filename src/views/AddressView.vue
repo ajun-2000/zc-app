@@ -1,25 +1,68 @@
 <template>
   <div id="address-view">
-    地址页面
-
-    <van-area title="标题" :area-list="areaList" />
+    <!-- 调用头部导航栏 -->
+    <lij-navbar title="地址管理" left-text="返回"></lij-navbar>
+    <van-address-list
+      v-model="chosenAddressId"
+      :list="list"
+      :disabled-list="disabledList"
+      disabled-text="以下地址超出配送范围"
+      default-tag-text="默认"
+      @add="onAdd"
+      @edit="toEdit"
+/>
 
   </div>
 </template>
 
 <script>
-  import { areaList } from '@vant/area-data';
+import { ref } from 'vue';
 
-  export default {
-    data(){
-      return {
-        areaList : areaList
-      }
+export default {
+  setup() {
+    const chosenAddressId = ref('1');
+    return {
+      chosenAddressId,
+    };
+  },
+
+  methods : {
+    onAdd(){
+      console.log('添加');
+      console.log(this.chosenAddressId);
     },
-
-    created(){
-      console.log(areaList)
+    toEdit(){
+      this.$router.push('/addressedit');
+    },
+  },
+  data(){
+    return{
+      disabledList : [
+      {
+        id: '3',
+        name: '王五',
+        tel: '1320000000',
+        address: '浙江省杭州市滨江区江南大道 15 号',
+      },
+      ],
+      list : [
+      {
+        id: '1',
+        name: '张三',
+        tel: '13000000000',
+        address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
+        isDefault: true,
+      },
+      {
+        id: '2',
+        name: '李四',
+        tel: '1310000000',
+        address: '浙江省杭州市拱墅区莫干山路 50 号',
+      },
+    ],
     }
   }
+  
+};
 
 </script>

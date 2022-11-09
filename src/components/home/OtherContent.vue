@@ -46,6 +46,7 @@
      this.bannerList = await this.api.getBannerData();
      this.goodsList = await this.api.getGoodsData({catId : this.id, pagesize : 6});
      this.getClassify();
+     console.log(this.id);
     },
 
     methods : {
@@ -54,9 +55,11 @@
         let result = await this.api.getClassifyData();
         // 获取当前分类中的小分类
         let miniClassify = [];
+        let titleName;
         result.forEach(item => {
           if(item.cat_id == this.id){
             miniClassify = item.data;
+            titleName = item.title;
             return;
           }
         });
@@ -66,12 +69,14 @@
         //从70个当前大分类商品中，每个小分类去截取四个商品
         miniClassify.forEach((item, index) => {
           this.classifyList.push({
-            cat_id : index + 1,
+            index : index,
+            cat_id : this.id,
             cat_name : item.product_content,
-            data : goods.splice(0, 4)
+            data : goods.splice(0, 4) ,
+            title : titleName
           })
         });
-        console.log(this.classifyList)
+        console.log(titleName)
 
       }
     },

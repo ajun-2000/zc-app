@@ -4,7 +4,7 @@
     <!-- 分类列表里面 调用导航栏 -->
     <lij-navbar title="商品列表" left-text="返回" :show-icon-cart="showIconCart" :cart-number="cartNumber"></lij-navbar>
     <van-sticky offset-top="46">
-    <div style="text-align: center; font-size :24px ; background:#fff ; padding:10px;">{{catName}}</div>
+    <div style="text-align: center; font-size :24px ; background:#fff ; padding:10px;">{{title}}</div>
   </van-sticky>
     <van-sticky offset-top="96">
     <van-tabs 
@@ -66,13 +66,13 @@ export default {
     return {
       pagesize : 10,
       goodsList : [],
-      active : 0,
+      active : parseInt(this.$route.query.index),
       activeClassify : [],
       classifyListMax : [],
       showIconCart : false,
       cartNumber : 0,
       catId : this.$route.query.cat_id,
-      catName : this.$route.query.catName,
+      title : this.$route.query.title,
     }
   },
 

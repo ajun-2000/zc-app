@@ -34,10 +34,12 @@ import {
 	ActionBarButton,
 	Col,
 	Row,
-	Divider 
+	Divider,
+	AddressList 
 } from 'vant'
 
 export default function(app){
+	app.use(AddressList)
 	app.use(Divider)
 	app.use(Col)
 	app.use(Row)

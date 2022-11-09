@@ -71,7 +71,8 @@
           this.catHotList.push({
             cat_name : item.cat_name,
             cat_id : item.cat_id,
-            data : catGoods
+            data : catGoods,
+            title : item.cat_name + '分类'
           })
 
         });
