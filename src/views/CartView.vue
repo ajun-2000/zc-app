@@ -146,7 +146,7 @@
 				})
 			},
 
-			//点击删除按钮
+			//点击删除按钮 
 			async clickCellH(id){
 				this.$toast.loading('删除中...');
 				let res = await this.api.getCartDelData({

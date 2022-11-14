@@ -1,11 +1,4 @@
-<!--
- * @Author: 李俊 958269209@qq.com
- * @Date: 2022-11-03 09:38:38
- * @LastEditors: 李俊 958269209@qq.com
- * @LastEditTime: 2022-11-03 09:44:22
- * @FilePath: \vue-lcapp\src\components\home\child\lijAd.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
+
 <template>
 
   <div class="lij-ad">
@@ -13,7 +6,7 @@
       <img :src="adList[0].src" alt="">
       <img :src="adList[1].src" alt="">
 
-    </div>
+    </div> 
     <div class="ad-r">
       <img :src="adList[2].src" alt="">
       <img :src="adList[3].src" alt="">

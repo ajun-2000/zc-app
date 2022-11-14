@@ -1,11 +1,4 @@
-/*
- * @Author: 李俊 958269209@qq.com
- * @Date: 2022-11-03 09:38:38
- * @LastEditors: 李俊 958269209@qq.com
- * @LastEditTime: 2022-11-03 09:45:38
- * @FilePath: \vue-lcapp\src\main.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
+
 import { createApp } from 'vue' 
 import App from './App.vue' 
 import './registerServiceWorker' 
@@ -39,4 +32,4 @@ app.use(router)
 // 使用vant 
 app.use(Vant) 
  
-app.mount('#app') 
+app.mount('#app')  

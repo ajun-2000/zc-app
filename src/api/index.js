@@ -135,7 +135,7 @@ export default {
       Toast.fail('地址操作失败,请返回地址列表');
       return;
     };
-    return data;
+    return data; 
   },
    // 设置默认地址的方法
    async setAddressData(obj){

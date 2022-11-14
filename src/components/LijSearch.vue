@@ -27,7 +27,7 @@
 
     <!-- 左侧label内容 -->
     <template #label>
-      <span class="logo">LC</span>
+      <span class="logo">zc</span>
     </template>
 
   </van-search>
@@ -89,4 +89,4 @@
     font-size: 16px;
     color: #666;
   }
-</style>
+</style> 

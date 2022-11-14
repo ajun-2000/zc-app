@@ -15,7 +15,6 @@
 				:key="item.id"
 				:to="item.to"
 				:badge="item.badge"	
-				@haha="changeBadge"	
 			>
 				<span>{{item.text}}</span>
 				<template #icon="props">

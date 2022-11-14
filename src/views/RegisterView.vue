@@ -112,7 +112,7 @@ export default {
           this.isUserOk = false;
           return '用户名已经存在';
         }
-        this.isUserOk = true;
+        this.isUserOk = true; 
 				return true;
 			},
       validatorPwd(val){

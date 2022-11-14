@@ -13,7 +13,7 @@
     :chosen-coupon="chosenCoupon"
     :disabled-coupons="disabledCoupons"
     @change="onChange"
-    @exchange="onExchange"
+    @exchange="onExchange" 
     />
   </div>
 

@@ -106,7 +106,7 @@
         display: inline-block;
         margin-right: 6px;
         width: 40%;
-        img{width:100%; border-radius: 8px;}
+        img{width:100%; border-radius: 8px;} 
       }
     }
     

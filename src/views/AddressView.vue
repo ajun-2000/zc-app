@@ -63,19 +63,13 @@ export default {
       addressList : [],
       disabledList : [
       {
-        id: '3',
+        id: '3', 
         name: '王五',
         tel: '1320000000',
         address: '浙江省杭州市滨江区江南大道 15 号',
       },
       ],
       list : [
-      // {
-      //   id: '2',
-      //   name: '李四',
-      //   tel: '1310000000',
-      //   address: '浙江省杭州市拱墅区莫干山路 50 号',
-      // },
     ],
     }
   }

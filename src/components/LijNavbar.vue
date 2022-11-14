@@ -15,7 +15,7 @@
         <van-icon @click="$router.push('/navbar/cart')" v-if="showIconCart" size="24" name="cart-o" :badge="cartNumber"></van-icon>
       </template>
 
-    </van-nav-bar>
+    </van-nav-bar> 
 
 </template>
 

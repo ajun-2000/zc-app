@@ -74,5 +74,5 @@ export default function(app){
 	app.use(ConfigProvider)
 	app.use(Tabbar)
 	app.use(TabbarItem)
-	app.use(Button)
+	app.use(Button) 
 }

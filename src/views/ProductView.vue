@@ -10,7 +10,7 @@
       <!-- 调用轮播图 -->
       <lij-banner 
       :banner-list="bannerList"
-      :img-size="1500/1500"
+      :img-size="1500/1500" 
       ></lij-banner>
       <div class="goodsInfo">
         <p style="color:#333;font-size:26px;"><span>{{namestr[0]}}</span> 

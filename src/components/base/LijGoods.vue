@@ -50,7 +50,7 @@ export default {
     //  font-family: Arial, Helvetica, sans-serif;
      color: #fe2f44;
      font-weight: bold;
-     line-height: 30px;
+     line-height: 30px; 
     }
   }
 </style>

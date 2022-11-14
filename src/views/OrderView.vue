@@ -132,6 +132,6 @@
 		padding-bottom: 134px;
 	}
    .van-card{
-		background: #fff;
+		background: #fff; 
 	}
 </style>

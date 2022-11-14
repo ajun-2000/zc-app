@@ -69,7 +69,7 @@
     text-align: center;
     line-height: 150px;
 
-    .lij-banner-item{
+    .lij-banner-item{ 
       box-sizing: border-box;
     }
   }
