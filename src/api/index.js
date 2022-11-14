@@ -1,5 +1,6 @@
 // 引入axios
 import axios from 'axios'
+import { Toast } from 'vant';
 import qs from 'qs'
 
 export default {
@@ -32,13 +33,12 @@ export default {
     let { data } = await axios.get('http://159.75.89.136:3000/api_goods', {
       params : datas
     });
-    // console.log(data);
     if(data.code != 0){
       console.log(data)
       console.log('请求导航分类数据');
       return;
     };
-    // console.log(data.data)
+
     return data.data;
   },
 
@@ -68,10 +68,9 @@ export default {
     return data.data;
   },
 
-  // 请求分类数据的方法
+  // 用户操作
   async getUserData(obj){
     let { data } = await axios.post('http://159.75.89.136:3000/api_user', qs.stringify(obj));
-    //console.log(data);
     return data;
   },
 
@@ -108,4 +107,44 @@ export default {
     return true;
   },
 
+  // 获取用户地址列表的方法
+  async getAddressData(obj){
+    let { data } = await axios.post('http://159.75.89.136:3000/api_address' , qs.stringify(obj));
+    if(data.code != 0){
+      console.log(data)
+      console.log('获取地址失败');
+      return;
+    };
+    return data;
+  },
+   // 增加用户地址的方法
+   async addAddressData(obj){
+    let { data } = await axios.post('http://159.75.89.136:3000/api_address' , qs.stringify(obj));
+    if(data.code != 0){
+      console.log(data)
+      Toast.fail('地址操作失败,请返回地址列表');
+      return;
+    };
+    return data;
+  },
+   // 删除用户地址的方法
+   async delAddressData(obj){
+    let { data } = await axios.post('http://159.75.89.136:3000/api_address' , qs.stringify(obj));
+    if(data.code != 0){
+      console.log(data)
+      Toast.fail('地址操作失败,请返回地址列表');
+      return;
+    };
+    return data;
+  },
+   // 设置默认地址的方法
+   async setAddressData(obj){
+    let { data } = await axios.post('http://159.75.89.136:3000/api_address' , qs.stringify(obj));
+    if(data.code != 0){
+      console.log(data)
+      console.log('设置默认地址失败');
+      return;
+    };
+    return data;
+  },
 }

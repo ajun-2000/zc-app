@@ -52,6 +52,7 @@
 		},
 
 		async created(){
+			// window.localStorage.removeItem('address_id');
 			this.catList = await this.api.getCatData();
 			this.catList.unshift({cat_id : '0000', cat_name : '首页'});
 		},

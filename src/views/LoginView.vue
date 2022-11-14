@@ -1,7 +1,7 @@
 <template>
 	<div id="login-view">
 		<!-- 登录里面调用 -->
-		<lij-navbar title="良仓" left-text="首页"></lij-navbar>
+		<lij-navbar title="登录" left-text="首页"></lij-navbar>
 
 		<div class="login-content">
 		<!-- 表单 -->
@@ -43,8 +43,11 @@
 
 			</van-form>
 		</div>
-
-		<div @click="toRegisterH">没有帐号，请注册</div>
+		<div class="agreement">登录即表示您同意
+			<span>良仓用户协议</span>
+			和 <span>隐私政策</span>
+			</div>
+		<div style=" padding:10px 30px; color: rgb(244 111 77);font-size: 14px;" @click="toRegisterH">没有账号,快速注册</div>
 
 	</div>
 </template>
@@ -53,14 +56,14 @@
 	// import Ref from '../components/ref.vue'
 
 	export default {
+		created(){
 
+		},
 		data(){
 			return {
 				username : '',
 				ruleUser : [
 					{required : true, message: '用户名不能为空', trigger : 'onBlur'},
-					// {pattern : /^[0-9a-z_]{3,12}$/g, message: '用户名必须为3-12位数字字母组成', trigger : 'onBlur'},
-					// {validator : this.validatorUser, message : '不能为空' }
 
 				],
 				pwd : '',
@@ -72,21 +75,6 @@
 		},
 
 		methods : {
-			// 校验函数
-			validatorUser(val){
-				if(val == ''){
-				  console.log('校验函数' + val)
-					return false;
-				};
-
-				if(!(/^[0-9a-z]{3,12}$/g.test(val))){
-					return false;
-				}
-
-				// console.log('校验函数' + val)
-				// 返回boolean值来确定
-				return true
-			},
 
 			clickLoginBtnH(){
 				// 调用组件实例方法
@@ -145,7 +133,12 @@
 </script>
 
 <style lang="less" scoped>
-
+	.agreement{
+		color:#666;
+		font-size: 12px;
+		text-align: center;
+		span{color: rgb(77, 77, 244);}
+	}
 	.login-content{
 		padding-top: 50px;
 	}

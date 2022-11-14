@@ -12,8 +12,12 @@ import ProductView from '../views/ProductView.vue'
 import ClassifyListView from '../views/ClassifyListView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import AddressView from '../views/AddressView.vue'
-import AddressEdit from '../views/AddressEdit.vue'
+import AddressEditView from '../views/AddressEditView.vue'
 import OrderView from '../views/OrderView.vue'
+import WishListView from '../views/WishListView.vue'
+import RedPacketView from '../views/RedPacketView.vue'
+import OrderListView from '../views/OrderListView.vue'
+import ServeView from '../views/ServeView.vue'
 
 //配置路由
 let routes = [
@@ -63,15 +67,34 @@ let routes = [
 		path : '/address',
 		component : AddressView
 	},
-	
+	//编辑地址页面
 	{
 		path : '/addressedit',
-		component : AddressEdit
+		component : AddressEditView
 	},
-	//订单路由页面
+	//心愿订单
+	{
+		path : '/wishlist',
+		component : WishListView
+	},
+	{
+		path : '/redpacket',
+		component : RedPacketView
+	},
+	//确认订单路由页面
 	{
 		path : '/order',
 		component : OrderView
+	},
+	//我的订单
+	{
+		path : '/orderlist',
+		component : OrderListView
+	},
+	//服务政策
+	{
+		path : '/serve',
+		component : ServeView
 	},
 ]
 
@@ -87,8 +110,12 @@ router.beforeEach((to, from, next) => {
 	//next();
 	let TOKEN = window.localStorage.getItem('token');
 	//传递参数为：路由路径
-	if(!TOKEN && (to.path == '/navbar/cart' || to.path == '/navbar/user')){
+	if(!TOKEN && (to.path == '/navbar/cart' || to.path == '/navbar/user' ||to.path =='/order')){
 		next('/login');	
+		return;
+	};
+	if(TOKEN && (to.path == '/register')){
+		next('navbar/index');
 		return;
 	};
 	

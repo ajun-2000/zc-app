@@ -10,6 +10,7 @@
       default-tag-text="默认"
       @add="onAdd"
       @edit="toEdit"
+      @select="selectH"
 />
 
   </div>
@@ -25,18 +26,41 @@ export default {
       chosenAddressId,
     };
   },
-
+  async created() {
+    this.addressList = await this.api.getAddressData({status : 'getAddress', userId : window.localStorage.getItem('token')});
+    console.log(this.addressList.data);
+    this.addressList.data.forEach((item,index) => {
+      let str = '';
+      str = item.province + item.city + item.district + item.streetname;
+      this.list.push({
+        id : item.isDefault ? '1' : index + 2 +'',
+        address_id : item.address_id,
+        name : item.takename,
+        tel : item.tel,
+        address : str,
+        isDefault: item.isDefault,
+      })
+    });
+    console.log(this.list);
+  },
   methods : {
-    onAdd(){
-      console.log('添加');
-      console.log(this.chosenAddressId);
+    //切换地址
+    selectH(val){
+      console.log(val.address_id);
+      window.localStorage.setItem('address_id', val.address_id);
     },
-    toEdit(){
-      this.$router.push('/addressedit');
+    //添加地址
+    onAdd(){
+      this.$router.push({path : '/addressedit',query : { isAdd : true}});
+    },
+    //编辑地址
+    toEdit(item){
+      this.$router.push({path : '/addressedit',query : {address_id : item.address_id , isAdd : false}});
     },
   },
   data(){
     return{
+      addressList : [],
       disabledList : [
       {
         id: '3',
@@ -46,19 +70,12 @@ export default {
       },
       ],
       list : [
-      {
-        id: '1',
-        name: '张三',
-        tel: '13000000000',
-        address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-        isDefault: true,
-      },
-      {
-        id: '2',
-        name: '李四',
-        tel: '1310000000',
-        address: '浙江省杭州市拱墅区莫干山路 50 号',
-      },
+      // {
+      //   id: '2',
+      //   name: '李四',
+      //   tel: '1310000000',
+      //   address: '浙江省杭州市拱墅区莫干山路 50 号',
+      // },
     ],
     }
   }
@@ -66,3 +83,8 @@ export default {
 };
 
 </script>
+<style lang="less" scoped>
+  .van-address-list__bottom{
+    background-color: ''!important;
+  }
+</style>

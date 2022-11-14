@@ -78,7 +78,7 @@
 		>
 			<van-checkbox @change="changeAllH" v-model="checkedAll" checked-color="#f95018">全选</van-checkbox>
 			<template #tip>
-				<span style="color: #666;">你的收货地址不支持配送, </span>
+				<!-- <span style="color: #666;">你的收货地址不支持配送, </span> -->
 				<span style="color:#72b2f2" @click="onClickLinkH">修改地址</span>
 			</template>
 		</van-submit-bar>
@@ -113,7 +113,6 @@
 				return all * 100 * 0.88;
 			}
 		},
-
 		methods : {
 			clickThumbH(id){
 				// 跳转到详情
@@ -164,11 +163,14 @@
 							this.cartList.splice(index, 1);
 							return;
 						};
-					})
+					});
+					this.$emit('changebadge');
 
 				}else{
 					this.$toast.fail('后台繁忙~~~');
-				}
+				};
+					
+
 			},
 
 			// 点击提交按钮
@@ -203,7 +205,7 @@
 			this.cartList = res.map(item => {
 				item.isChecked = true;
 				return item;
-			})
+			});
 			console.log(this.cartList)
 		},
 

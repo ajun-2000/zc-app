@@ -10,9 +10,9 @@
      @clickleft="clickLeftHandler"
     ></lij-search>
   </van-sticky>
-  <div style="margin: 15px;color:#666"><van-icon name="hot-o" />大家都在搜</div> 
-  <van-row style="margin:0px 15px" justify="space-around">
-  <van-col span="4" v-for="item in hotSearch" :key="item.name"><van-button size="small" @click="clickRightHandler(item.name)">{{item.name}}</van-button></van-col>
+  <div style="margin: 15px;color:#666;font-size: 12px;"><van-icon name="hot-o" />大家都在搜</div> 
+  <van-row style="margin:0px 15px;" justify="space-around">
+  <van-col span="6" v-for="item in hotSearch" :key="item.name"><van-button  @click="clickRightHandler(item.name)">{{item.name}}</van-button></van-col>
 </van-row>
 <!--搜索结果-->
     <div v-if="searchData ? true : false">
@@ -63,8 +63,6 @@
                      {name : '钢笔'},{name : '儿童'},
                      {name : '鞋子'},{name : '网红'},
                      {name : '冬天'},{name : '潮流'},
-                     {name : '卫衣'},{name : '帽子'},
-                     {name : '充电宝'},
                     ],
         goodsList : [],
         pagesize : 4 ,

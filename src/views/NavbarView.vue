@@ -14,7 +14,8 @@
 				v-for="item in tabbarList"
 				:key="item.id"
 				:to="item.to"
-				:badge="item.badge"		
+				:badge="item.badge"	
+				@haha="changeBadge"	
 			>
 				<span>{{item.text}}</span>
 				<template #icon="props">
@@ -51,6 +52,14 @@
 		},
 
 		methods : {
+			changeBadge(val){
+				if(val.badge != 0){
+					this.cartNumber = val.badge;
+				};
+				console.log('改变后数量');
+				console.log(val);
+
+			},
 			changebadgeH(){
 				this.getCartCount();
 			},
@@ -68,7 +77,6 @@
 					userId : token
 				}).then(result => {
 					this.cartNumber = result.length;
-					console.log(this.cartNumber)
 				})
 			}
 		}

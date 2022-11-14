@@ -22,12 +22,22 @@
 			 >
 			</van-tab>
 		</van-tabs>
-  
-  <van-row>
-    <van-col span="8" >推荐</van-col>
-    <van-col span="8" >价格<van-icon name="sort"></van-icon></van-col>
-    <van-col span="8">新品</van-col>
-  </van-row>
+    <van-tabs 
+    class="sortord"
+		 v-model:active="index"
+     color="#313334"
+		 title-inactive-color="#666"
+		 line-width="30"
+     @click-tab="sortH(index)"
+     
+		 >
+			<van-tab
+			 v-for="(item,index) in list"
+			 :key="index"
+			 :title="item.name"
+			 >
+			</van-tab>
+		</van-tabs>
 </van-sticky>
   <div class="lij-home-goods">
   <div class="goods-content">
@@ -64,6 +74,8 @@ export default {
 
   data(){
     return {
+      isUp : false,
+      index : 0,
       pagesize : 10,
       goodsList : [],
       active : parseInt(this.$route.query.index),
@@ -73,11 +85,35 @@ export default {
       cartNumber : 0,
       catId : this.$route.query.cat_id,
       title : this.$route.query.title,
+      list:[
+            {name : '推荐'},
+            {name : '价格'},
+            {name : '新品'},
+            ]
     }
   },
 
 
   methods : {
+    async sortH(i){
+      
+      this.pagesize = 10;
+      this.goodsList = await this.api.getGoodsData({catId : this.catId, pagesize : this.pagesize ,page : this.active + i+1});
+      this.list[1].name = '价格';
+      if(i == 1){
+        this.goodsList = await this.api.getGoodsData({catId : this.catId, pagesize : this.pagesize ,page : this.active + i});
+        this.isUp = !this.isUp;
+        if(this.isUp){
+          this.list[i].name = '价格▼';
+          this.goodsList.sort((a,b)=>{ return b.price-a.price});//降序
+        }else{
+          this.list[i].name = '价格▲';
+          this.goodsList.sort((a,b)=>{ return a.price-b.price});//升序
+        };
+        
+        
+      }
+    },
     async moreH(){
       this.pagesize = this.pagesize + 4 ; 
       this.goodsList = await this.api.getGoodsData({catId : this.catId, pagesize : this.pagesize ,page : this.active + 1});
@@ -111,15 +147,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.van-row{
+.sortord{
   margin-bottom:10px;
-  border-top: 2px solid #666;
-  border-bottom: 2px solid #666;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   background:#eee;
-.van-col{
-    text-align: center;
-    padding:10px;
-  }
 }
 .lij-home-goods{
     padding: 0px 10px;

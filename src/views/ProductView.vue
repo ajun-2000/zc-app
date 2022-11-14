@@ -14,7 +14,11 @@
       ></lij-banner>
       <div class="goodsInfo">
         <p style="color:#333;font-size:26px;"><span>{{namestr[0]}}</span> 
-          <span style="font-size: 18px; float: right; line-height: 50px;"><van-icon name="like-o">{{goods.star_number}}</van-icon></span> 
+          <span style="font-size: 18px; float: right; line-height: 50px;">
+            <van-icon :name="iconName" color="#3a8ff4" @click="likeH">
+              {{goods.star_number}}
+            </van-icon>
+          </span> 
         </p>
         <p >{{namestr[1]}}</p>
         <p style="color:#fe2f44;font-size:26px">¥{{goods.price}}</p>
@@ -90,8 +94,9 @@
         <van-stepper v-model="value" theme="round" button-size="28" disable-input style="padding:10px" min="1" max="10" />
 
       </div>
-
+      <van-sticky position="bottom">
         <van-button @click="clickConfirmH" block round color="#72b2f2" type="default">确定</van-button>
+      </van-sticky>
       </van-action-sheet>
 
 
@@ -128,6 +133,8 @@
 
     data(){
       return {
+        islike : false,
+        iconName : 'like-o',
         activeIndex : 0,
         value : 1,
         goodsList : [],
@@ -145,6 +152,18 @@
     },
 
     methods : {
+      likeH(){
+        this.islike = !this.islike;
+        if(this.islike){
+          this.iconName ='like';
+          this.goods.star_number++;
+        }else{
+          this.iconName ='like-o'
+          this.goods.star_number--;
+        };
+        
+        
+      },
       activeH(i){
           this.activeIndex = i;
       },
@@ -181,6 +200,16 @@
 
       // 点击确定按钮
       async  clickConfirmH(){
+        let f = window.localStorage.getItem('token');
+        if(!f){ 
+          this.$toast.fail({
+						message: '请先登录再操作',
+						duration : 1000,
+						forbidClick : true
+					});
+          this.$router.push('/login');
+          return;
+        };
         let res = await this.api.getCartAddData({
 					status : 'addcart',
 					userId : window.localStorage.getItem('token'),
@@ -190,6 +219,13 @@
         if(res && this.isAddBuy == '加入购物车'){
           this.$toast.success('加入购物车成功');
         };
+        this.api.getCartViewData({
+          status : 'viewcart',
+          userId : window.localStorage.getItem('token'),
+        }).then(result => {
+          this.cartNumber = result.length;
+          console.log(this.cartNumber);
+        });
 				if(res.code != 0){
 					//回头
 				};

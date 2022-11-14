@@ -2,7 +2,11 @@
   <div id="order-view">
     <!-- 调用头部导航栏 -->
     <lij-navbar title="确认订单" left-text="返回"></lij-navbar>
-    <van-cell title="阿俊" is-link value="15526359389" size="large" label="湖南长沙岳麓区麓谷街道湖南硅谷IT教育" to="address" />
+    <van-cell :title="nowAddress.takename" is-link 
+    :value="nowAddress.tel" 
+    size="large" 
+    :label="nowAddress.province +nowAddress.city + nowAddress.district + nowAddress.streetname"
+     to="address" />
     <van-card
       v-for="item in goodsData" 
       :key="item.goods_id"
@@ -13,7 +17,7 @@
       :thumb="item.goods_thumb"
       :origin-price="item.price"
     />
-    <van-cell style="margin:3px 0px" title="红包" is-link value="0个可用" size="large"  to="hongbao" />
+    <van-cell style="margin:3px 0px" title="红包" is-link value="0个可用" size="large"  to="redpacket" />
     <van-cell is-link @click="showPopup" title="代金券">红包和代金券不能同时用</van-cell>
     <van-popup 
     v-model:show="show"
@@ -51,12 +55,25 @@
   export default {
    
     async created(){
+      let x = parseInt(window.localStorage.getItem('address_id'));
+      console.log(x);
       if(typeof this.goodsList == 'string' ){
         let str = [];
          str.push(this.goodsList);
          this.goodsList = str;
       };
-      // console.log(this.goodsList);
+			this.addressList = await this.api.getAddressData({status : 'getAddress', userId : window.localStorage.getItem('token')});
+      this.addressList.data.forEach( item =>{
+        if(x && item.address_id == x){
+
+          this.choseAddress = item;
+        };
+        if(item.isDefault == true){
+
+            this.defaultAddress = item;
+        };
+          return;
+      });
 			let res = await this.api.getCartViewData({status : 'viewcart', userId : window.localStorage.getItem('token')});
       this.goodsList.forEach(item1 => {
         res.forEach(item2 =>{
@@ -66,11 +83,24 @@
           return;
       });
 			});
-      console.log(this.goodsData);
+      if(x && this.choseAddress !=''){
+        this.nowAddress = this.choseAddress;
+      }else{
+        this.nowAddress = this.defaultAddress;
+      };
+      if(this.nowAddress == ''){
+        this.nowAddress.takename = '请选择一个地址'
+      }
+      console.log(this.nowAddress);
       
 		},
     data(){
       return {
+        nowAddress : [],
+        choseAddress : [],
+        defaultAddress : [],
+        text : '',
+        addressList : [],
         show : false,
         goodsList : this.$route.query.goodsId,
         goodsData : []
