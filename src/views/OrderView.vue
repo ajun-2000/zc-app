@@ -17,7 +17,31 @@
       :thumb="item.goods_thumb"
       :origin-price="item.price"
     />
-    <van-cell style="margin:3px 0px" title="红包" is-link value="0个可用" size="large"  to="redpacket" />
+      <!-- 优惠券单元格 -->
+  <van-coupon-cell
+    title="红包"
+    :coupons="coupons"
+    :chosen-coupon="chosenCoupon"
+    @click="showList = true"
+  />
+  <!-- 优惠券列表 -->
+  <van-popup
+    v-model:show="showList"
+    round
+    position="bottom"
+    style="height: 90%; padding-top: 4px;"
+  >
+    <van-coupon-list
+      input-placeholder="请输入红包码"
+      :coupons="coupons"
+      :chosen-coupon="chosenCoupon"
+      :disabled-coupons="disabledCoupons"
+      @change="onChange"
+      @exchange="onExchange"
+    />
+  </van-popup>
+
+    <!-- <van-cell style="margin:3px 0px" title="红包" is-link value="0个可用" size="large"  to="redpacket" /> -->
     <van-cell is-link @click="showPopup" title="代金券">红包和代金券不能同时用</van-cell>
     <van-popup 
     v-model:show="show"
@@ -42,7 +66,7 @@
       <span style="float:right"><van-radio shape="square"></van-radio></span>
     </div>
     <div style="padding:20px;background:#fff;border-top: 1px solid #eee;">
-      <van-button color="#000" style="float:right">确认支付</van-button>
+      <van-button color="#000" style="float:right" @click="underH">确认支付</van-button>
       <p style="color:red;font-size: 24px;">良仓总价 : ￥{{priceAll*0.88}}</p>
       <p style="font-size:12px">已节省 : ￥{{priceAll*0.12}}</p>
      
@@ -50,10 +74,64 @@
   </div>
 </template>
 <script>
- 
+ import { ref } from 'vue';
+ import { Toast } from 'vant';
 
   export default {
-   
+    setup() {
+    const coupon = {
+      available: 1,
+      condition: '无门槛\n限时可用',
+      reason: '',
+      value: 2000,
+      name: '20元红包',
+      startAt: 1672204000,
+      endAt: 1672604000,
+      valueDesc: '20',
+      unitDesc: '元',
+    };
+    const coupon2 = {
+      available: 1,
+      condition: '无门槛\n限时可用',
+      reason: '',
+      value: 8800,
+      name: '88元红包',
+      startAt: 1672204000,
+      endAt: 1672604000,
+      valueDesc: '88',
+      unitDesc: '元',
+    };
+
+    const coupons = ref([coupon]);
+    const showList = ref(false);
+    const chosenCoupon = ref(-1);
+
+    const onChange = (index) => {
+      showList.value = false;
+      chosenCoupon.value = index;
+    };
+    const onExchange = (code) => {
+      if(code == '95826988'){
+        coupons.value.push(coupon2);
+      }else{
+        Toast.fail({
+						message: '兑换码有误',
+						duration : 1000,
+						forbidClick : true
+					});
+      }
+      
+    };
+
+    return {
+      coupons,
+      showList,
+      onChange,
+      onExchange,
+      chosenCoupon,
+      disabledCoupons: [coupon],
+    };
+  },
     async created(){
       let x = parseInt(window.localStorage.getItem('address_id'));
       console.log(x);
@@ -107,6 +185,13 @@
       }
     },
     methods:{
+      underH(){
+        this.$toast.fail({
+						message: '支付权限未开通',
+						duration : 1000,
+						forbidClick : true
+					});
+      },
       useH(){
         this.show = false;
       },

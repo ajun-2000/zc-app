@@ -15,14 +15,20 @@ body, html, #app, #navbar-view{
 	overflow: hidden; 
 	background: #f7f7f7;  
 } 
-#search-view, #login-view, #classify-list,#product-view,#order-view{ 
+#search-view,#classify-list,#product-view,#order-view{ 
 	width:100%;  
 	height: 100%; 
 	overflow-y: scroll; 
 	overflow-x: hidden; 
 	background: #f9f9f9; 
 } 
- 
+#login-view{ 
+	width:100%;  
+	height: 100%; 
+	overflow-y: scroll; 
+	overflow-x: hidden; 
+	background: rgba(0, 0, 0, 0.1); 
+} 
 :root{ 
 	/* 全局色调变量颜色 */ 
 	--baseColor : #72b2f2; 

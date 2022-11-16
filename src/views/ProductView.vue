@@ -3,7 +3,9 @@
 
     <lij-navbar left-text="返回" title="商品详情" :show-icon-cart="showIconCart" :cart-number=" cartNumber"></lij-navbar>
     
-    <div v-if="isSoldOut">商品已下架</div>
+    <div v-if="isSoldOut">
+      <van-empty description="商品已下架" />
+    </div>
 
     <div v-else>
 

@@ -47,7 +47,12 @@
 			<span>良仓用户协议</span>
 			和 <span>隐私政策</span>
 			</div>
-		<div style=" padding:10px 30px; color: rgb(244 111 77);font-size: 14px;" @click="toRegisterH">没有账号,快速注册</div>
+		<div class="bSty" > 
+			<a href="JavaScript:;"><img src="../assets/img/qq-icon40_36.png" alt=""></a>
+			<a href="JavaScript:;"><img src="../assets/img/sina-icon40_36.png" alt=""></a>
+			<a href="JavaScript:;"><img src="../assets/img/douban-icon40_36.png" alt=""></a>
+			<span @click="toRegisterH">没有账号,快速注册</span> 
+		</div>
 
 	</div>
 </template>
@@ -141,6 +146,19 @@
 	}
 	.login-content{
 		padding-top: 50px;
+	}
+	.bSty{
+		padding:10px 30px; 
+		color: rgb(244 111 77);
+		font-size: 14px;
+		img{
+			width:20px;
+			height: 20px;
+			padding:5px;
+		}
+		span{
+			float:right;
+		}
 	}
 
 </style> 
